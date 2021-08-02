@@ -13,9 +13,9 @@ optimizelyClient.onReady().then(() => {
     console.log(decision);
 
     console.log(`\nVariation: ${decision.variationKey}`);
-    console.log(`with values: 
+    console.log(`with values:       
     login = ${decision.variables['login']}
-    accounts_account-overview = ${
+    accounts_account-overview = ${ 
       decision.variables['accounts_account-overview']
     }
     enrollment = ${decision.variables['enrollment']}
