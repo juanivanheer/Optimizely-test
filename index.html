@@ -1,14 +1,63 @@
 <head>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+    }
+  </style>
+
   <script src="https://global.sanbot.pre.sandigital.santander.com/content/US/va-chatbot-config.js"></script>
 </head>
 
 <body>
-  <p id="variation"></p> 
+  <p id="variation"></p>
   <hr>
-  <p id="login"></p>
-  <p id="enrollment"></p>
-  <p id="help-and-support_faq"></p>
-  <p id="accounts_account-overview"></p>
+  <table style="width:100%">
+    <tr>
+      <th>login</th>
+      <th>enrollment</th>
+      <th>help-and-support_faq</th>
+      <th>accounts_account-overview</th>
+    </tr>
+    <tr>
+      <td>
+        <p id="login"></p>
+      </td>
+      <td>
+        <p id="enrollment"></p>
+      </td>
+      <td>
+        <p id="help-and-support_faq"></p>
+      </td>
+      <td>
+        <p id="accounts_account-overview"></p>
+        </p>
+      </td>
+    </tr>
+  </table>
+  <hr><br>
+
+  <table id="table">
+    <thead>
+      <tr>
+        <th>EventAction</th>
+        <th>EventCategory</th> 
+        <th>EventLabel</th>
+        <th>EventName</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
   <va-chatbot context='{"page_name": "main_page"}'></va-chatbot>
   <script src="https://global.sanbot.pre.sandigital.santander.com/content/v3/virtual-assistant-chatbot.min.js"></script>
 </body>

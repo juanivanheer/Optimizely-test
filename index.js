@@ -11,16 +11,34 @@ optimizelyClient.onReady().then(() => {
     let user = optimizelyClient.createUserContext(userId);
     let decision = user.decide('virtual_assistant_routes');
 
-    let variation_html = document.getElementById("variation")
-    variation_html.innerHTML = 'VARIATION: ' + decision.variationKey
+    let variation_html = document.getElementById('variation');
+    variation_html.innerHTML = 'VARIATION NAME: ' + decision.variationKey;
 
-    document.getElementById("login").innerHTML = 'login: ' + decision.variables['login'];
+    document.getElementById('login').innerHTML = decision.variables['login'];
 
-    document.getElementById("accounts_account-overview").innerHTML = 'accounts_account-overview: ' + 
-      decision.variables['accounts_account-overview']
+    document.getElementById('accounts_account-overview').innerHTML =
+      decision.variables['accounts_account-overview'];
 
-    document.getElementById("enrollment").innerHTML = 'enrollment: ' + decision.variables['enrollment'];
+    document.getElementById('enrollment').innerHTML =
+      decision.variables['enrollment'];
 
-    document.getElementById("help-and-support_faq").innerHTML = 'help-and-support_faq: ' + decision.variables['help-and-support_faq'];
+    document.getElementById('help-and-support_faq').innerHTML =
+      decision.variables['help-and-support_faq'];
   }
+});
+
+const table = document.getElementById('table');
+document.addEventListener('VIRTUAL_ASSISTANT_CHATBOT', event => {
+  console.log(event.detail);
+  var cell_1 = `<tr><td>${event.detail.EventAction}</td>`;
+  var cell_2 = `<td>${event.detail.EventCategory}</td>`;
+  var cell_3 = `<td>${event.detail.EventLabel}</td>`;
+  var cell_4 = `<td>${event.detail.EventName}</td></tr>`;
+  var cells = cell_1 + cell_2 + cell_3 + cell_4;
+  var tableRef = document
+    .getElementById('table')
+    .getElementsByTagName('tbody')[0];
+
+  var newRow = tableRef.insertRow(tableRef.rows.length);
+  newRow.innerHTML = cells;
 });
