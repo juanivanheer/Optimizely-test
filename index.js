@@ -11,7 +11,8 @@ const VirtualAssistant = [
   'start review',
   '[FAQ card] click read more',
   'send message',
-  'VIRTUAL_ASSISTANT_CHATBOT'
+  'click like rate response',
+  'close read more'
 ];
 
 const optimizelyClient = optimizelySdk.createInstance({
