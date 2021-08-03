@@ -1,4 +1,18 @@
 const optimizelySdk = require('@optimizely/optimizely-sdk');
+const VirtualAssistant = [
+  'click chat close',
+  'click chat minimize',
+  'click chat open',
+  'start typing',
+  'error virtual assistant',
+  'click feedback survey closed',
+  'first interaction',
+  'click dislike rate response',
+  'start review',
+  '[FAQ card] click read more',
+  'send message',
+  'VIRTUAL_ASSISTANT_CHATBOT'
+];
 
 const optimizelyClient = optimizelySdk.createInstance({
   sdkKey: 'GD1YnswD17rAwke3qSy5q'
@@ -30,15 +44,19 @@ optimizelyClient.onReady().then(() => {
 const table = document.getElementById('table');
 document.addEventListener('VIRTUAL_ASSISTANT_CHATBOT', event => {
   console.log(event.detail);
-  var cell_1 = `<tr><td>${event.detail.EventAction}</td>`;
-  var cell_2 = `<td>${event.detail.EventCategory}</td>`;
-  var cell_3 = `<td>${event.detail.EventLabel}</td>`;
-  var cell_4 = `<td>${event.detail.EventName}</td></tr>`;
-  var cells = cell_1 + cell_2 + cell_3 + cell_4;
-  var tableRef = document
-    .getElementById('table')
-    .getElementsByTagName('tbody')[0];
+  if (VirtualAssistant.includes(event.detail.EventName)) {
+    var tableRef = document
+      .getElementById('table')
+      .getElementsByTagName('tbody')[0];
 
-  var newRow = tableRef.insertRow(tableRef.rows.length);
-  newRow.innerHTML = cells;
+    var cell_1 = `<tr><td>${tableRef.rows.length}</td>`;
+    var cell_2 = `<td>${event.detail.EventAction}</td>`;
+    var cell_3 = `<td>${event.detail.EventCategory}</td>`;
+    var cell_4 = `<td>${event.detail.EventLabel}</td>`;
+    var cell_5 = `<td>${event.detail.EventName}</td></tr>`;
+    var cells = cell_1 + cell_2 + cell_3 + cell_4 + cell_5;
+
+    var newRow = tableRef.insertRow(tableRef.rows.length);
+    newRow.innerHTML = cells;
+  }
 });
