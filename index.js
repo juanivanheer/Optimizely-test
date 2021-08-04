@@ -27,7 +27,8 @@ optimizelyClient.onReady().then(() => {
     let decision = user.decide('virtual_assistant_routes');
 
     let variation_html = document.getElementById('variation');
-    variation_html.innerHTML = 'VARIATION NAME: ' + decision.variationKey;
+    variation_html.innerHTML =
+      'OPTIMIZELY VARIATION NAME: ' + decision.variationKey;
 
     document.getElementById('login').innerHTML = decision.variables['login'];
 
@@ -39,12 +40,34 @@ optimizelyClient.onReady().then(() => {
 
     document.getElementById('help-and-support_faq').innerHTML =
       decision.variables['help-and-support_faq'];
+
+    if (!decision.variables['login']) {
+      document.dispatchEvent(
+        new CustomEvent('VIRTUAL_ASSISTANT_ACTION', {
+          bubbles: true,
+          detail: {
+            action: 'updateConfig',
+            newValues: { showEntryPoint: false }
+          }
+        })
+      );
+    } else {
+      document.dispatchEvent(
+        new CustomEvent('VIRTUAL_ASSISTANT_ACTION', { 
+          bubbles: true,
+          detail: {
+            action: 'updateConfig',
+            newValues: { 
+              customStyles: { chatInputIcon: 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Boca_escudo.png' }
+            }
+          }
+        })
+      );
+    }
   }
 });
 
-const table = document.getElementById('table');
 document.addEventListener('VIRTUAL_ASSISTANT_CHATBOT', event => {
-  console.log(event.detail);
   if (VirtualAssistant.includes(event.detail.EventName)) {
     var tableRef = document
       .getElementById('table')
