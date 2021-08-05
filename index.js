@@ -53,12 +53,15 @@ optimizelyClient.onReady().then(() => {
       );
     } else {
       document.dispatchEvent(
-        new CustomEvent('VIRTUAL_ASSISTANT_ACTION', { 
+        new CustomEvent('VIRTUAL_ASSISTANT_ACTION', {
           bubbles: true,
           detail: {
             action: 'updateConfig',
-            newValues: { 
-              customStyles: { chatInputIcon: 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Boca_escudo.png' }
+            newValues: {
+              customStyles: {
+                chatInputIcon:
+                  'http://assets.stickpng.com/thumbs/5847f9cbcef1014c0b5e48c8.png'
+              }
             }
           }
         })
