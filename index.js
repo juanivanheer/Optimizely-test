@@ -24,24 +24,44 @@ optimizelyClient.onReady().then(() => {
     let userId = Math.floor(Math.random() * (10000 - 1000) + 1000).toString();
 
     let user = optimizelyClient.createUserContext(userId);
+
+    /*  
+      decision es un objeto que trae los siguientes atributos:
+
+      1) enabled: true/false si la feature flag está habilitada
+
+      2) flagKey: el nombre de la key de la feature flag
+
+      3) reasons: un arreglo con datos (razones??)
+
+      4) ruleKey: el nombre de la key establecida en el experimento de A/B testing
+
+      5) userContext: un objeto que contiene datos del usuario (ID, instancia de optimizely, objeto con atributos)
+
+      6) variables: es un objeto que contiene a las variables definidas en optimizely con los valores definidos dependiendo de la variación elegida por optimizely
+
+      7) variationKey: define el nombre de la variación que eleigió optimizely
+    */
     let decision = user.decide('virtual_assistant_routes');
+
+    /* 
+      optimizelyClient.activate(...) va a devolver un string de la variación que ha escogido optimizely 
+    */
+    const variation = optimizelyClient.activate('experiment', userId);
+
+    console.log(decision);
+    console.log(variation);
 
     let variation_html = document.getElementById('variation');
     variation_html.innerHTML =
       'OPTIMIZELY VARIATION NAME: ' + decision.variationKey;
 
-    document.getElementById('login').innerHTML = decision.variables['login'];
+    document.getElementById('account_overview').innerHTML =
+      decision.variables['account_overview'];
 
-    document.getElementById('accounts_account-overview').innerHTML =
-      decision.variables['accounts_account-overview'];
+    document.getElementById('faqs').innerHTML = decision.variables['faqs'];
 
-    document.getElementById('enrollment').innerHTML =
-      decision.variables['enrollment'];
-
-    document.getElementById('help-and-support_faq').innerHTML =
-      decision.variables['help-and-support_faq'];
-
-    if (!decision.variables['login']) {
+    if (!decision.variables['account_overview']) {
       document.dispatchEvent(
         new CustomEvent('VIRTUAL_ASSISTANT_ACTION', {
           bubbles: true,
