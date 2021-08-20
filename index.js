@@ -23,7 +23,6 @@ optimizelyClient.onReady().then(() => {
   for (let i = 0; i < 1; i++) {
     //let userId = Math.floor(Math.random() * (10000 - 1000) + 1000).toString();
     let userId = new DeviceUUID().get();
-
     let user = optimizelyClient.createUserContext(userId);
 
     /*  
@@ -90,6 +89,7 @@ optimizelyClient.onReady().then(() => {
     }
 
     console.log(userId);
+    console.log(new DeviceUUID().parse());
   }
 });
 
