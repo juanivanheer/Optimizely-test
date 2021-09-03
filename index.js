@@ -49,8 +49,8 @@ optimizelyClient.onReady().then(() => {
     */
     const variation = optimizelyClient.activate('experiment', userId);
 
-    console.log(decision);
-    console.log(variation);
+    console.log('Decision: ' + decision);
+    console.log('Variation: ' + variation);
 
     let variation_html = document.getElementById('variation');
     variation_html.innerHTML =
