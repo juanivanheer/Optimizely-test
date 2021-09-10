@@ -26,11 +26,10 @@ optimizelyClient.onReady().then(() => {
     let user = optimizelyClient.createUserContext(userId);
 
     let decision = user.decide('virtual_assistant_routes');
-    const variation = decision['variationKey'];
 
-    console.log('Enabled?: ' + decision['enabled']);
-    console.log('Variation: ' + variation);
-    console.log('Variables: ' + decision.variables['experiment']);
+    console.log('UserID: ' + userId);
+    console.log('Variation: ' + decision['variationKey']);
+    console.log(decision.variables);
 
     document.getElementById('variation').innerHTML =
       'OPTIMIZELY VARIATION NAME: ' + decision.variationKey;
