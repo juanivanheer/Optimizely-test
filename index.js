@@ -21,39 +21,18 @@ const optimizelyClient = optimizelySdk.createInstance({
 
 optimizelyClient.onReady().then(() => {
   for (let i = 0; i < 1; i++) {
-    //let userId = Math.floor(Math.random() * (10000 - 1000) + 1000).toString();
-    let userId = new DeviceUUID().get();
+    let userId = Math.floor(Math.random() * (10000 - 1000) + 1000).toString();
+    //let userId = new DeviceUUID().get();
     let user = optimizelyClient.createUserContext(userId);
 
-    /*  
-      decision es un objeto que trae los siguientes atributos:
-
-      1) enabled: true/false si la feature flag está habilitada
-
-      2) flagKey: el nombre de la key de la feature flag
-
-      3) reasons: un arreglo con datos (razones??)
-
-      4) ruleKey: el nombre de la key establecida en el experimento de A/B testing
-
-      5) userContext: un objeto que contiene datos del usuario (ID, instancia de optimizely, objeto con atributos)
-
-      6) variables: es un objeto que contiene a las variables definidas en optimizely con los valores definidos dependiendo de la variación elegida por optimizely
-
-      7) variationKey: define el nombre de la variación que eleigió optimizely
-    */
     let decision = user.decide('virtual_assistant_routes');
+    const variation = decision['variationKey'];
 
-    /* 
-      optimizelyClient.activate(...) va a devolver un string de la variación que ha escogido optimizely 
-    */
-    const variation = optimizelyClient.activate('experiment', userId);
-
-    console.log('Decision: ' + decision);
+    console.log('Enabled?: ' + decision['enabled']);
     console.log('Variation: ' + variation);
+    console.log('Variables: ' + decision.variables['experiment']);
 
-    let variation_html = document.getElementById('variation');
-    variation_html.innerHTML =
+    document.getElementById('variation').innerHTML =
       'OPTIMIZELY VARIATION NAME: ' + decision.variationKey;
 
     document.getElementById('account_overview').innerHTML =
@@ -77,19 +56,11 @@ optimizelyClient.onReady().then(() => {
           bubbles: true,
           detail: {
             action: 'updateConfig',
-            newValues: {
-              customStyles: {
-                chatInputIcon:
-                  'http://assets.stickpng.com/thumbs/5847f9cbcef1014c0b5e48c8.png'
-              }
-            }
+            newValues: { showEntryPoint: true }
           }
         })
       );
     }
-
-    console.log(userId);
-    console.log(new DeviceUUID().parse());
   }
 });
 
